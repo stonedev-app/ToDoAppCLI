@@ -5,5 +5,6 @@ ThisBuild / scalaVersion := "3.3.5"
 lazy val root = (project in file("."))
   .settings(
     name := "ToDoAppCLI",
-    idePackagePrefix := Some("com.app.stone.dev")
+    idePackagePrefix := Some("com.app.stone.dev"),
+    libraryDependencies += "com.lihaoyi" %% "ujson" % "4.0.2",
   )
