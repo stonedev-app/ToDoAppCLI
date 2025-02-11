@@ -38,8 +38,8 @@ private def getTodosMaxId(todos: List[Map[String, ujson.Value]]): Int = {
  */
 private def createTodo(id: Int, title: String): Map[String, ujson.Value] = {
   Map(
-    "id"   -> ujson.Num(id.toDouble),
-    "task" -> ujson.Str(title),
-    "done" -> ujson.Bool(false)
+    Keys.Id.name    -> ujson.Num(id.toDouble),
+    Keys.Title.name -> ujson.Str(title),
+    Keys.Done.name  -> ujson.Bool(false)
   )
 }
