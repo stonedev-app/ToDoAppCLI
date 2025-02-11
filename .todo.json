@@ -1,4 +1,4 @@
 [
-  {"id": 0, "task": "Scalaを学ぶ", "done": false},
-  {"id": 1, "task": "Rustのtraitを理解する", "done": false}
+  {"id": 0, "title": "Scalaを学ぶ", "done": false},
+  {"id": 1, "title": "Rustのtraitを理解する", "done": false}
 ]

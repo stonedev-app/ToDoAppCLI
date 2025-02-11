@@ -12,6 +12,6 @@ val JSON_FILE_NAME = ".todo.json"
  */
 private enum Keys(val name: String) {
   case Id extends Keys("id")
-  case Task extends Keys("task")
+  case Title extends Keys("title")
   case Done extends Keys("done")
 }

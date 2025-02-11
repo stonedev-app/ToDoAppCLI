@@ -2,18 +2,18 @@ package com.app.stone.dev
 package todo
 
 /***
- * addTasks
+ * addTodos
  * @param todos Todos
- * @param tasks Tasks
+ * @param titles Title of Todo
  * @return Todos
  */
-def addTasks(todos: List[Map[String, ujson.Value]], tasks: String*) :List[Map[String, ujson.Value]] = {
-  // to get the starting id for adding new tasks
+def addTodos(todos: List[Map[String, ujson.Value]], titles: String*) :List[Map[String, ujson.Value]] = {
+  // to get the starting id for adding new todos
   val startId = getTodosMaxId(todos) + 1
-  // Generate a list of tuples containing the tasks and id
-  val taskIdTupleList = tasks.zipWithIndex.map { case(task, index) => (task, index + startId) }
+  // Generate a list of tuples containing the title and id
+  val titleIdTupleList = titles.zipWithIndex.map { case(title, index) => (title, index + startId) }
   // Add the newly created Todos to the original Todos
-  todos ++ taskIdTupleList.map{case(task, id) => createTodo(id, task)}
+  todos ++ titleIdTupleList.map{case(title, id) => createTodo(id, title)}
 }
 
 /** *
@@ -33,13 +33,13 @@ private def getTodosMaxId(todos: List[Map[String, ujson.Value]]): Int = {
 /***
  * createTodo
  * @param id id
- * @param task task
+ * @param title Title
  * @return Todo
  */
-private def createTodo(id: Int, task: String): Map[String, ujson.Value] = {
+private def createTodo(id: Int, title: String): Map[String, ujson.Value] = {
   Map(
     "id"   -> ujson.Num(id.toDouble),
-    "task" -> ujson.Str(task),
+    "task" -> ujson.Str(title),
     "done" -> ujson.Bool(false)
   )
 }

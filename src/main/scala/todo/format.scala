@@ -8,7 +8,7 @@ package todo
  * @return List of Todo string
  */
 def formatTodos(todos: List[Map[String, ujson.Value]]): List[String] = {
-  todos.map(formatTodoByKeys(Keys.Id.name, Keys.Task.name, Keys.Done.name))
+  todos.map(formatTodoByKeys(Keys.Id.name, Keys.Title.name, Keys.Done.name))
 }
 
 /** *
