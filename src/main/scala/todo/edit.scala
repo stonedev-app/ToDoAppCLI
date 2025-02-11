@@ -7,7 +7,7 @@ package todo
  * @param titles Title of Todo
  * @return Todos
  */
-def addTodos(todos: List[Map[String, ujson.Value]], titles: String*) :List[Map[String, ujson.Value]] = {
+def addTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[Map[String, ujson.Value]] = {
   // to get the starting id for adding new todos
   val startId = getTodosMaxId(todos) + 1
   // Generate a list of tuples containing the title and id
