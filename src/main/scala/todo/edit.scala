@@ -16,29 +16,30 @@ def addTasks(todos: List[Map[String, ujson.Value]], tasks: String*) :List[Map[St
   todos ++ taskIdTupleList.map{case(task, id) => createTodo(id, task)}
 }
 
+/** *
+ * getTodosMaxId
+ *
+ * @param todos Todos
+ * @return MaxId
+ */
+private def getTodosMaxId(todos: List[Map[String, ujson.Value]]): Int = {
+  // The Todo list's ID starts from 0
+  todos.foldLeft(0) { (max, todo) =>
+    val id = todo("id").num.toInt
+    if (id > max) id else max
+  }
+}
+
 /***
  * createTodo
  * @param id id
  * @param task task
  * @return Todo
  */
-def createTodo(id: Int, task: String): Map[String, ujson.Value] = {
+private def createTodo(id: Int, task: String): Map[String, ujson.Value] = {
   Map(
     "id"   -> ujson.Num(id.toDouble),
     "task" -> ujson.Str(task),
     "done" -> ujson.Bool(false)
   )
-}
-
-/***
- * getTodosMaxId
- * @param todos Todos
- * @return MaxId
- */
-def getTodosMaxId(todos: List[Map[String, ujson.Value]]) :Int = {
-  // The Todo list's ID starts from 0
-  todos.foldLeft(0) { (max, todo) =>
-    val id = todo("id").num.toInt
-    if (id > max) id else max
-  }
 }
