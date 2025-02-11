@@ -46,7 +46,7 @@ def saveTodos(todos: List[Map[String, ujson.Value]], filename: String): Unit = {
   val json = ujson.Arr(listBuffer.toList: _*)
 
   // Convert to a string
-  val jsonString = json.render()
+  val jsonString = json.render(indent = 2)
 
   // write to a file
   val writer = new PrintWriter(filename)
