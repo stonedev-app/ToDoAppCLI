@@ -24,4 +24,3 @@ def main(args: String*): Unit = {
     }
   }
 }
-
