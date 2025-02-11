@@ -25,7 +25,7 @@ def addTasks(todos: List[Map[String, ujson.Value]], tasks: String*) :List[Map[St
 private def getTodosMaxId(todos: List[Map[String, ujson.Value]]): Int = {
   // The Todo list's ID starts from 0
   todos.foldLeft(0) { (max, todo) =>
-    val id = todo("id").num.toInt
+    val id = todo(Keys.Id.name).num.toInt
     if (id > max) id else max
   }
 }
