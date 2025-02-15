@@ -8,8 +8,10 @@ package todo
  * @return Todos
  */
 def addTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[Map[String, ujson.Value]] = {
-  // to get the starting id for adding new todos
-  val startId = getTodosMaxId(todos) + 1
+  // get the maxId from todos
+  val maxId = getTodosMaxId(todos)
+  // ID start at 0. If ToDos already exists, increment the ID by 1.
+  val startId = if(maxId == Int.MinValue) 0 else maxId + 1
   // Generate a list of tuples containing the title and id
   val titleIdTupleList = titles.zipWithIndex.map { case(title, index) => (title, index + startId) }
   // Add the newly created Todos to the original Todos
@@ -20,11 +22,11 @@ def addTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[
  * getTodosMaxId
  *
  * @param todos Todos
- * @return MaxId
+ * @return MaxId. If todos is empty, return Int.MinValue.
  */
 private def getTodosMaxId(todos: List[Map[String, ujson.Value]]): Int = {
-  // The Todo list's ID starts from 0
-  todos.foldLeft(0) { (max, todo) =>
+  // If todos is empty, return Int.MinValue
+  todos.foldLeft(Int.MinValue) { (max, todo) =>
     val id = todo(Keys.Id.name).num.toInt
     if (id > max) id else max
   }
