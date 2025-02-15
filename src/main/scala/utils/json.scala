@@ -4,6 +4,7 @@ package utils
 import java.io.PrintWriter
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
+import scala.util.Try
 
 /***
  * loadTodos
@@ -12,12 +13,12 @@ import scala.io.Source
  * @return Todos
  */
 def loadTodos(filename: String): List[Map[String, ujson.Value]] = {
-  val source = Source.fromFile(filename)
-  val jsonString = source.mkString
-  source.close()
-
-  val json = ujson.read(jsonString)
-  json.arr.map(_.obj.toMap).toList
+  Try {
+    val source = Source.fromFile(filename)
+    val jsonString = try source.mkString finally source.close()
+    val json = ujson.read(jsonString)
+    json.arr.map(_.obj.toMap).toList
+  }.getOrElse(List.empty)
 }
 
 /***
