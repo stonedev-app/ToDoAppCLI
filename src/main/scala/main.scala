@@ -1,6 +1,6 @@
 package com.app.stone.dev
 
-import todo.{JSON_FILE_NAME, addTodos, formatTodos}
+import todo.{JSON_FILE_NAME, makeTodos, formatTodos}
 import utils.{loadTodos, saveTodos}
 
 @main
@@ -16,8 +16,9 @@ def main(args: String*): Unit = {
         formatTodos(todos).foreach(println)
       case "add" =>
         val todos = loadTodos(JSON_FILE_NAME)
-        val newTodos = addTodos(todos, params)
-        saveTodos(newTodos, JSON_FILE_NAME)
+        val addTodos = makeTodos(todos, params)
+        saveTodos(todos ++ addTodos, JSON_FILE_NAME)
+        formatTodos(addTodos).foreach(println)
       case _ =>
         println("Unknown command. Usage: list|add [options]")
     }

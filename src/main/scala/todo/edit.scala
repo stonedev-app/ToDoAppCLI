@@ -2,20 +2,20 @@ package com.app.stone.dev
 package todo
 
 /***
- * addTodos
+ * makeTodos
  * @param todos Todos
  * @param titles Title of Todo
  * @return Todos
  */
-def addTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[Map[String, ujson.Value]] = {
+def makeTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[Map[String, ujson.Value]] = {
   // get the maxId from todos
   val maxId = getTodosMaxId(todos)
   // ID start at 0. If ToDos already exists, increment the ID by 1.
   val startId = if(maxId == Int.MinValue) 0 else maxId + 1
   // Generate a list of tuples containing the title and id
   val titleIdTupleList = titles.zipWithIndex.map { case(title, index) => (title, index + startId) }
-  // Add the newly created Todos to the original Todos
-  todos ++ titleIdTupleList.map{case(title, id) => createTodo(id, title)}
+  // Newly created Todos
+  titleIdTupleList.map{case(title, id) => createTodo(id, title)}
 }
 
 /** *
