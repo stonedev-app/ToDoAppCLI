@@ -16,8 +16,8 @@ def main(args: String*): Unit = {
         formatTodos(todos).foreach(println)
       case "add" =>
         val todos = loadTodos(JSON_FILE_NAME)
-        val getNextId = nextIdCalculator(todos)
-        val addTodos = makeTodos(getNextId, params)
+        val getNextId = nextIdCalculator(0)
+        val addTodos = makeTodos(getNextId(todos), params)
         saveTodos(todos ++ addTodos, JSON_FILE_NAME)
         formatTodos(addTodos).foreach(println)
       case _ =>
