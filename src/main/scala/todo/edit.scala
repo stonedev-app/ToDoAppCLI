@@ -3,13 +3,14 @@ package todo
 
 /***
  * makeTodos
- * @param todos Todos
+ * @param getNextId get NextId form Todos
  * @param titles Title of Todo
  * @return Todos
  */
-def makeTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List[Map[String, ujson.Value]] = {
-  // NextId
-  val nextId = getNextId(todos)
+def makeTodos(getNextId: Int => Int,
+              titles: List[String]) :List[Map[String, ujson.Value]] = {
+  // Get nextId. startId is 0
+  val nextId = getNextId(0)
   // Generate a list of tuples containing the title and id
   val titleIdTupleList = titles.zipWithIndex.map { case(title, index) => (title, index + nextId) }
   // Newly created Todos
@@ -17,19 +18,19 @@ def makeTodos(todos: List[Map[String, ujson.Value]], titles: List[String]) :List
 }
 
 /** *
- * getNextId
+ * nextIdCalculator
  *
  * @param todos Todos
- * @return NextId. If todos is empty, return 0.
+ * @return getNextId(startId:Int): => nextId:Int
  */
-private def getNextId(todos: List[Map[String, ujson.Value]]): Int = {
+def nextIdCalculator(todos: List[Map[String, ujson.Value]]): Int => Int = {
   // If todos is empty, maxId is Int.MinValue
   val maxId = todos.foldLeft(Int.MinValue) { (max, todo) =>
     val id = todo(Keys.Id.name).num.toInt
     if (id > max) id else max
   }
-  // ID start at 0. If ToDos already exists, increment the ID by 1.
-  if(maxId == Int.MinValue) 0 else maxId + 1
+  // ID start at startId. If ToDos already exists, increment the ID by 1.
+  startId => if(maxId == Int.MinValue) startId else maxId + 1
 }
 
 /***
