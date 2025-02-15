@@ -23,13 +23,12 @@ def makeTodos(nextId: Int,
  */
 def nextIdCalculator(startId: Int): List[Map[String, ujson.Value]] => Int = {
   todos => {
-    // If todos is empty, maxId is Int.MinValue
-    val maxId = todos.foldLeft(Int.MinValue) { (max, todo) =>
-      val id = todo(Keys.Id.name).num.toInt
-      if (id > max) id else max
-    }
-    // ID start at startId. If ToDos already exists, increment the ID by 1.
-    if (maxId == Int.MinValue) startId else maxId + 1
+    // Convert to empty if todos is null
+    val safeTodos = Option(todos).getOrElse(List.empty)
+    // Get the maximum value of the ID
+    val maxId = safeTodos.map(todo => todo(Keys.Id.name).num.toInt).maxOption
+    // If an ID can be retrieved, increment it by 1. Otherwise, set the startId
+    maxId.map(_ + 1).getOrElse(startId)
   }
 }
 
