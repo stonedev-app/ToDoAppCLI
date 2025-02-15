@@ -135,4 +135,7 @@ Temporary Items
 # Add .bsp folder
 .bsp
 
+# Project-specific settings
+.todo.json
+
 
