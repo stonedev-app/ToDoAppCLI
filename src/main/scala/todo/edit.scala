@@ -2,13 +2,13 @@ package com.app.stone.dev
 package todo
 
 /***
- * makeTodos
+ * makeAddTodos
  * @param nextId Id
  * @param titles Title of Todo
  * @return Todos
  */
-def makeTodos(nextId: Int,
-              titles: List[String]) :List[Map[String, ujson.Value]] = {
+def makeAddTodos(nextId: Int,
+                 titles: List[String]) :List[Map[String, ujson.Value]] = {
   // Generate a list of tuples containing the title and id
   val titleIdTupleList = titles.zipWithIndex.map { case(title, index) => (title, index + nextId) }
   // Newly created Todos

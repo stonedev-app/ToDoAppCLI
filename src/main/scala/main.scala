@@ -1,6 +1,6 @@
 package com.app.stone.dev
 
-import todo.{JSON_FILE_NAME, formatTodos, makeTodos, nextIdCalculator}
+import todo.{JSON_FILE_NAME, formatTodos, makeAddTodos, nextIdCalculator}
 import utils.{loadTodos, saveTodos}
 
 @main
@@ -17,7 +17,7 @@ def main(args: String*): Unit = {
       case "add" =>
         val todos = loadTodos(JSON_FILE_NAME)
         val getNextId = nextIdCalculator(0)
-        val addTodos = makeTodos(getNextId(todos), params)
+        val addTodos = makeAddTodos(getNextId(todos), params)
         saveTodos(todos ++ addTodos, JSON_FILE_NAME)
         formatTodos(addTodos).foreach(println)
       case _ =>
