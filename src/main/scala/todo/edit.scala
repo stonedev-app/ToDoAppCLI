@@ -5,7 +5,7 @@ package todo
  * makeAddTodos
  * @param nextId Id
  * @param titles Title of Todo
- * @return Todos
+ * @return Todos to be added
  */
 def makeAddTodos(nextId: Int,
                  titles: List[String]) :List[Map[String, ujson.Value]] = {
@@ -15,9 +15,8 @@ def makeAddTodos(nextId: Int,
   titleIdTupleList.map{case(title, id) => createTodo(id, title, false)}
 }
 
-/** *
+/***
  * nextIdCalculator
- *
  * @param startId Id
  * @return getNextId(todos): => nextId
  */
@@ -30,6 +29,17 @@ def nextIdCalculator(startId: Int): List[Map[String, ujson.Value]] => Int = {
     // If an ID can be retrieved, increment it by 1. Otherwise, set the startId
     maxId.map(_ + 1).getOrElse(startId)
   }
+}
+
+/***
+ * makeDeleteTodos
+ * @param ids ids to be deleted
+ * @param todos Original Todos
+ * @return Todos to be deleted
+ */
+def makeDeleteTodos(ids: List[Int],
+                    todos: List[Map[String, ujson.Value]]): List[Map[String, ujson.Value]] = {
+  todos.filter(todo => ids.contains(todo(Keys.Id.name).num.toInt))
 }
 
 /***
